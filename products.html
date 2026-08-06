@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GARNIER - Hair Products</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: #fefaf5;
+      color: #2c2a29;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: white;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+      border-bottom: 1px solid #f0e4d8;
+      flex-wrap: wrap;
+    }
+
+    nav h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #2b5e2b, #6f4e2e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    nav div {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #5a3e2b;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: #b1622c;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem 0;
+      color: #3b2a1f;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1300px;
+      margin: 2rem auto;
+      padding: 0 1.5rem 3rem 1.5rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 2rem;
+      overflow: hidden;
+      width: 260px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+      transition: all 0.25s ease;
+      text-align: center;
+      padding-bottom: 1.5rem;
+      border: 1px solid #f3e9e1;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      display: block;
+      background: #f9f3ed;
+      padding: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0.5rem 0 0.3rem;
+      color: #2d4a2b;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #5e5a57;
+      padding: 0 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card span {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #b96f30;
+      display: inline-block;
+      margin: 0.5rem 0;
+    }
+
+    .card button {
+      background: #2e5c2b;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.6rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .card button:hover {
+      background: #1f4520;
+      transform: scale(0.96);
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2e5c2b;
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #8b7a6b;
+      font-size: 0.8rem;
+      border-top: 1px solid #f0e2d6;
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <h2>GARNIER</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About</a>
+    <a href="cart.html">Cart 🛒</a>
+  </div>
+</nav>
+
+<h1 class="title">Our Products</h1>
+
+<div class="products">
+
+  <!-- 1. Grow Strong Shampoo -->
+  <div class="card">
+    <img src="https://i5.walmartimages.com/asr/089cac65-51a4-4807-9fb8-adcebb6fda5f.2ceb2ab9967c8153b25f155d66247d99.jpeg" alt="Grow Strong Shampoo">
+    <h3>Grow Strong Shampoo</h3>
+    <p>Strengthens hair and reduces breakage.</p>
+    <span>$6.99</span>
+    <button onclick="addToCart('Grow Strong Shampoo', 6.99, 'https://i5.walmartimages.com/asr/089cac65-51a4-4807-9fb8-adcebb6fda5f.2ceb2ab9967c8153b25f155d66247d99.jpeg')">Add</button>
+  </div>
+
+  <!-- 2. Grow Strong Conditioner -->
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/610iCNcHkiL._AC_SX679_.jpg" alt="Grow Strong Conditioner">
+    <h3>Grow Strong Conditioner</h3>
+    <p>Smooth and nourish your hair.</p>
+    <span>$6.99</span>
+    <button onclick="addToCart('Grow Strong Conditioner', 6.99, 'https://m.media-amazon.com/images/I/610iCNcHkiL._AC_SX679_.jpg')">Add</button>
+  </div>
+
+  <!-- 3. Honey Repair Shampoo -->
+  <div class="card">
+    <img src="https://m.media-amazon.com/images/I/81h2GKJ0qUL._AC_UF1000,1000_QL80_.jpg" alt="Honey Repair Shampoo">
+    <h3>Honey Repair Shampoo</h3>
+    <p>Restores damaged hair with natural honey.</p>
+    <span>$7.99</span>
+    <button onclick="addToCart('Honey Repair Shampoo', 7.99, 'https://m.media-amazon.com/images/I/81h2GKJ0qUL._AC_UF1000,1000_QL80_.jpg')">Add</button>
+  </div>
+
+  <!-- 4. Hair Mask Treatment -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=500&q=80" alt="Hair Mask Treatment">
+    <h3>Hair Mask Treatment</h3>
+    <p>Deep repair and hydration.</p>
+    <span>$8.99</span>
+    <button onclick="addToCart('Hair Mask Treatment', 8.99, 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=500&q=80')">Add</button>
+  </div>
+
+</div>
+
+<script>
+  let cart = [];
+
+  function loadCartFromStorage() {
+    const stored = localStorage.getItem('garnier_cart');
+    if (stored) {
+      try {
+        cart = JSON.parse(stored);
+      } catch(e) { console.warn(e); }
+    }
+  }
+
+  function saveCartToStorage() {
+    localStorage.setItem('garnier_cart', JSON.stringify(cart));
+  }
+
+  window.addToCart = function(productName, price, imageUrl) {
+    const existingItem = cart.find(item => item.name === productName);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({
+        name: productName,
+        price: price,
+        quantity: 1,
+        image: imageUrl
+      });
+    }
+    saveCartToStorage();
+    showAddToast(productName + ' added to cart 🛍️');
+    // Update cart count in navigation
+    updateNavCartCount();
+  };
+
+  function updateNavCartCount() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartLink = document.querySelector('nav a[href="cart.html"]');
+    if (cartLink) {
+      const existingBadge = cartLink.querySelector('.cart-badge');
+      if (existingBadge) existingBadge.remove();
+      if (totalItems > 0) {
+        const badge = document.createElement('span');
+        badge.className = 'cart-badge';
+        badge.textContent = totalItems;
+        badge.style.cssText = 'background:#b96f30; color:white; border-radius:20px; padding:0 6px; margin-left:5px; font-size:0.7rem;';
+        cartLink.appendChild(badge);
+      }
+    }
+  }
+
+  function showAddToast(message) {
+    let toast = document.querySelector('.toast-msg');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'toast-msg';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+    }, 1800);
+  }
+
+  loadCartFromStorage();
+  updateNavCartCount();
+</script>
+
+<footer>
+  🌿 Garnier - Naturally inspired hair care since 1904
+</footer>
+</body>
+</html>
