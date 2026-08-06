@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | Garnier</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: #fefaf5;
+      color: #2c2a29;
+      line-height: 1.5;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: white;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+      border-bottom: 1px solid #f0e4d8;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #2b5e2b, #6f4e2e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    nav div {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #5a3e2b;
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+
+    nav a:hover, nav a.active {
+      color: #b1622c;
+      transform: translateY(-1px);
+    }
+
+    .cart-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .cart-items-section {
+      flex: 2;
+      min-width: 280px;
+    }
+
+    .cart-summary-section {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .cart-header h1 {
+      font-size: 1.8rem;
+      color: #3b2a1f;
+    }
+
+    .cart-count {
+      color: #8b7a6b;
+      background: #f0e4d8;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+    }
+
+    .cart-item {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      border: 1px solid #f0e4d8;
+      transition: 0.2s;
+    }
+
+    .cart-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .item-image {
+      width: 80px;
+      height: 80px;
+      background: #f9f3ed;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .item-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .item-details {
+      flex: 2;
+      min-width: 150px;
+    }
+
+    .item-details h3 {
+      font-size: 1.1rem;
+      color: #2b5e2b;
+      margin-bottom: 0.25rem;
+    }
+
+    .item-price {
+      color: #b96f30;
+      font-weight: 600;
+    }
+
+    .item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quantity-btn {
+      background: #f0e4d8;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .quantity-btn:hover {
+      background: #e0d0c0;
+    }
+
+    .quantity-input {
+      width: 45px;
+      text-align: center;
+      border: 1px solid #f0e4d8;
+      border-radius: 8px;
+      padding: 0.25rem;
+      font-family: monospace;
+    }
+
+    .item-total {
+      font-weight: 700;
+      color: #2b5e2b;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #b96f30;
+      transition: 0.2s;
+      padding: 0.25rem;
+    }
+
+    .remove-btn:hover {
+      color: #c0392b;
+      transform: scale(1.1);
+    }
+
+    .empty-cart {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 3rem;
+      text-align: center;
+      border: 1px solid #f0e4d8;
+    }
+
+    .empty-cart img {
+      max-width: 200px;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    .empty-cart p {
+      color: #8b7a6b;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .confirmation-modal {
+      background: white;
+      border-radius: 2rem;
+      max-width: 450px;
+      width: 90%;
+      padding: 2rem;
+      text-align: center;
+      transform: scale(0.9);
+      transition: 0.3s;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+
+    .modal-overlay.active .confirmation-modal {
+      transform: scale(1);
+    }
+
+    .confirmation-modal .checkmark {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .confirmation-modal h2 {
+      color: #2b5e2b;
+      margin-bottom: 0.5rem;
+    }
+
+    .confirmation-modal p {
+      color: #5e5a57;
+      margin-bottom: 0.5rem;
+    }
+
+    .order-details {
+      background: #fefaf5;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+
+    .order-details p {
+      margin: 0.25rem 0;
+      font-size: 0.9rem;
+    }
+
+    .modal-btn {
+      background: #2e5c2b;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: 0.2s;
+    }
+
+    .modal-btn:hover {
+      background: #1f4520;
+      transform: scale(0.98);
+    }
+
+    .summary-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid #f0e4d8;
+      position: sticky;
+      top: 100px;
+    }
+
+    .summary-card h3 {
+      font-size: 1.3rem;
+      color: #3b2a1f;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #f0e4d8;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      color: #5e5a57;
+    }
+
+    .summary-total {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2b5e2b;
+      border-top: 1px solid #f0e4d8;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+    }
+
+    .checkout-btn {
+      background: #2e5c2b;
+      color: white;
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      transition: 0.2s;
+    }
+
+    .checkout-btn:hover {
+      background: #1f4520;
+      transform: scale(0.98);
+    }
+
+    .brand-banner {
+      background: linear-gradient(135deg, #2b5e2b, #6f4e2e);
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .brand-banner img {
+      height: 50px;
+      width: auto;
+      border-radius: 0.5rem;
+      background: white;
+      padding: 0.25rem;
+    }
+
+    .brand-banner p {
+      color: white;
+      font-size: 0.85rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #8b7a6b;
+      font-size: 0.8rem;
+      border-top: 1px solid #f0e2d6;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .cart-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      .item-total {
+        text-align: center;
+      }
+      .cart-header {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <h2>GARNIER</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About</a>
+    <a href="cart.html" class="active">Cart 🛒</a>
+  </div>
+</nav>
+
+<div class="cart-container">
+  <div class="cart-items-section">
+    <div class="cart-header">
+      <h1>Your Cart</h1>
+      <span class="cart-count" id="cart-count-display">0 items</span>
+    </div>
+
+    <div class="brand-banner">
+      <img src="https://m.media-amazon.com/images/I/81+hJTWX0cL._AC_SX679_.jpg" alt="Garnier Nourish Sulfate-Free Shampoo">
+      <p>✨ Free shipping on orders $35+ | Sustainable & cruelty-free formulas</p>
+    </div>
+
+    <div id="cart-items-list"></div>
+  </div>
+
+  <div class="cart-summary-section">
+    <div class="summary-card">
+      <h3>Order Summary</h3>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotal">$0.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span>Calculated at next step</span>
+      </div>
+      <div class="summary-row summary-total">
+        <span>Total</span>
+        <span id="total">$0.00</span>
+      </div>
+      <button class="checkout-btn" id="checkout-btn">Proceed to Checkout →</button>
+      <p style="font-size: 0.7rem; text-align: center; margin-top: 0.75rem; color: #8b7a6b;">Taxes included. Shipping added at checkout.</p>
+    </div>
+  </div>
+</div>
+
+<div id="confirmation-modal" class="modal-overlay">
+  <div class="confirmation-modal">
+    <div class="checkmark">✅</div>
+    <h2>Thank You for Your Order!</h2>
+    <p>Your Garnier products are on their way.</p>
+    <div class="order-details" id="order-details"></div>
+    <p style="font-size: 0.8rem; color: #8b7a6b;">A confirmation email has been sent to your inbox.</p>
+    <button class="modal-btn" id="close-modal">Continue Shopping →</button>
+  </div>
+</div>
+
+<footer>
+  🌿 Garnier - Naturally inspired hair care since 1904
+</footer>
+
+<script>
+  let cart = [];
+
+  function loadCart() {
+    const stored = localStorage.getItem('garnier_cart');
+    if (stored) {
+      try {
+        cart = JSON.parse(stored);
+      } catch(e) { console.warn(e); }
+    }
+    renderCart();
+  }
+
+  function saveCart() {
+    localStorage.setItem('garnier_cart', JSON.stringify(cart));
+    renderCart();
+    window.dispatchEvent(new Event('storage'));
+  }
+
+  function updateQuantity(index, newQuantity) {
+    if (newQuantity < 1) {
+      cart.splice(index, 1);
+    } else {
+      cart[index].quantity = newQuantity;
+    }
+    saveCart();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    saveCart();
+  }
+
+  function renderCart() {
+    const container = document.getElementById('cart-items-list');
+    const subtotalSpan = document.getElementById('subtotal');
+    const totalSpan = document.getElementById('total');
+    const countSpan = document.getElementById('cart-count-display');
+
+    if (!cart || cart.length === 0) {
+      container.innerHTML = `
+        <div class="empty-cart">
+          <img src="https://m.media-amazon.com/images/I/81+hJTWX0cL._AC_SX679_.jpg" alt="Garnier products" style="max-width:150px;">
+          <p>Your cart is feeling a little empty.</p>
+          <a href="products.html" class="checkout-btn" style="display:inline-block; width:auto; padding:0.6rem 1.5rem;">Shop Our Collections →</a>
+        </div>
+      `;
+      subtotalSpan.innerText = '$0.00';
+      totalSpan.innerText = '$0.00';
+      countSpan.innerText = '0 items';
+      return;
+    }
+
+    let subtotal = 0;
+    let itemCount = 0;
+    let itemsHtml = '';
+
+    cart.forEach((item, idx) => {
+      const itemTotal = item.price * item.quantity;
+      subtotal += itemTotal;
+      itemCount += item.quantity;
+
+      // Use the product's own image, or fallback to the banner image if missing
+      const productImage = item.image || 'https://m.media-amazon.com/images/I/81+hJTWX0cL._AC_SX679_.jpg';
+
+      itemsHtml += `
+        <div class="cart-item">
+          <div class="item-image">
+            <img src="${productImage}" alt="${escapeHtml(item.name)}">
+          </div>
+          <div class="item-details">
+            <h3>${escapeHtml(item.name)}</h3>
+            <div class="item-price">$${item.price.toFixed(2)}</div>
+          </div>
+          <div class="item-quantity">
+            <button class="quantity-btn" onclick="updateQuantity(${idx}, ${item.quantity - 1})">−</button>
+            <span class="quantity-input" style="padding:0 0.5rem;">${item.quantity}</span>
+            <button class="quantity-btn" onclick="updateQuantity(${idx}, ${item.quantity + 1})">+</button>
+          </div>
+          <div class="item-total">$${itemTotal.toFixed(2)}</div>
+          <button class="remove-btn" onclick="removeItem(${idx})" title="Remove">🗑️</button>
+        </div>
+      `;
+    });
+
+    container.innerHTML = itemsHtml;
+    subtotalSpan.innerText = `$${subtotal.toFixed(2)}`;
+    totalSpan.innerText = `$${subtotal.toFixed(2)}`;
+    countSpan.innerText = `${itemCount} ${itemCount === 1 ? 'item' : 'items'}`;
+  }
+
+  function showConfirmation() {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    const orderDetailsDiv = document.getElementById('order-details');
+    let itemsList = '';
+    cart.forEach(item => {
+      itemsList += `<p>• ${escapeHtml(item.name)} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</p>`;
+    });
+    
+    orderDetailsDiv.innerHTML = `
+      <p><strong>Order #${Math.floor(Math.random() * 90000) + 10000}</strong></p>
+      <p>📅 ${new Date().toLocaleDateString()}</p>
+      ${itemsList}
+      <hr style="margin: 0.5rem 0; border-color: #f0e4d8;">
+      <p><strong>Total: $${subtotal.toFixed(2)}</strong></p>
+    `;
+    
+    document.getElementById('confirmation-modal').classList.add('active');
+  }
+
+  function completeCheckout() {
+    if (!cart || cart.length === 0) {
+      alert('Your cart is empty. Add some products first!');
+      return;
+    }
+    showConfirmation();
+  }
+
+  function resetCartAndCloseModal() {
+    cart = [];
+    saveCart();
+    document.getElementById('confirmation-modal').classList.remove('active');
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  document.getElementById('checkout-btn')?.addEventListener('click', completeCheckout);
+  document.getElementById('close-modal')?.addEventListener('click', resetCartAndCloseModal);
+  
+  document.getElementById('confirmation-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+      resetCartAndCloseModal();
+    }
+  });
+
+  loadCart();
+</script>
+</body>
+</html>
