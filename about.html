@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Garnier | Naturally Inspired Hair Care</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: #fefaf5;
+      color: #2c2a29;
+      line-height: 1.5;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: white;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+      border-bottom: 1px solid #f0e4d8;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #2b5e2b, #6f4e2e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    nav div {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #5a3e2b;
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+
+    nav a:hover, nav a.active {
+      color: #b1622c;
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .about-hero {
+      background: linear-gradient(135deg, #e8f0e6 0%, #fff5eb 100%);
+      padding: 4rem 5%;
+      text-align: center;
+    }
+
+    .about-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #2b5e2b;
+      margin-bottom: 1rem;
+    }
+
+    .about-hero p {
+      font-size: 1.2rem;
+      color: #4a5b3e;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Mission Section */
+    .mission {
+      padding: 4rem 5%;
+      background: white;
+      text-align: center;
+    }
+
+    .mission h2 {
+      font-size: 2rem;
+      color: #3b2a1f;
+      margin-bottom: 1rem;
+    }
+
+    .mission p {
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      color: #5e5a57;
+      font-size: 1.05rem;
+    }
+
+    .mission-stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #b96f30;
+    }
+
+    .stat-label {
+      color: #5e5a57;
+      font-size: 0.9rem;
+    }
+
+    /* Values Section */
+    .values {
+      background: #fefaf5;
+      padding: 4rem 5%;
+    }
+
+    .values h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #3b2a1f;
+      margin-bottom: 2rem;
+    }
+
+    .values-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .value-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      width: 260px;
+      text-align: center;
+      border: 1px solid #f0e4d8;
+      transition: 0.2s;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+    }
+
+    .value-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .value-card h3 {
+      color: #2b5e2b;
+      margin-bottom: 0.5rem;
+    }
+
+    .value-card p {
+      color: #5e5a57;
+      font-size: 0.9rem;
+    }
+
+    /* Story Section */
+    .story {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 3rem;
+      padding: 4rem 5%;
+      background: white;
+    }
+
+    .story-content {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .story-content h2 {
+      font-size: 2rem;
+      color: #3b2a1f;
+      margin-bottom: 1rem;
+    }
+
+    .story-content p {
+      color: #5e5a57;
+      margin-bottom: 1rem;
+    }
+
+    .story-image {
+      flex: 1;
+      min-width: 280px;
+      text-align: center;
+    }
+
+    .story-image img {
+      max-width: 100%;
+      border-radius: 2rem;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+      background: white;
+      padding: 1rem;
+      max-height: 400px;
+      object-fit: contain;
+    }
+
+    /* Sustainability Banner */
+    .sustainability {
+      background: linear-gradient(135deg, #2b5e2b, #6f4e2e);
+      color: white;
+      text-align: center;
+      padding: 3rem;
+      margin: 2rem 5%;
+      border-radius: 2rem;
+    }
+
+    .sustainability h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .sustainability p {
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* CTA Section */
+    .cta-about {
+      text-align: center;
+      padding: 4rem 5%;
+      background: #fefaf5;
+    }
+
+    .cta-about h3 {
+      font-size: 1.8rem;
+      color: #3b2a1f;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      background: #2e5c2b;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .btn-primary:hover {
+      background: #1f4520;
+      transform: scale(0.98);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #8b7a6b;
+      font-size: 0.8rem;
+      border-top: 1px solid #f0e2d6;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .about-hero h1 {
+        font-size: 2.2rem;
+      }
+      .story {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <h2>GARNIER</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="about.html" class="active">About</a>
+    <a href="cart.html">Cart 🛒</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="about-hero">
+  <h1>Beauty That Moves Forward</h1>
+  <p>For over 100 years, Garnier has been creating innovative, accessible, and sustainable hair care that works without compromise.</p>
+</section>
+
+<!-- Mission Section -->
+<section class="mission">
+  <h2>Our Mission</h2>
+  <p>To make beauty more sustainable, inclusive, and effective for everyone. We believe that what's good for your hair should also be good for the planet.</p>
+  <div class="mission-stats">
+    <div class="stat">
+      <div class="stat-number">1904</div>
+      <div class="stat-label">Year Founded</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Recycled Plastic Bottles</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">50+</div>
+      <div class="stat-label">Countries Worldwide</div>
+    </div>
+  </div>
+</section>
+
+<!-- Values Section -->
+<section class="values">
+  <h2>What We Stand For</h2>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">🌱</div>
+      <h3>Plant-Powered</h3>
+      <p>Formulas enriched with natural extracts and fruit-derived ingredients.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">♻️</div>
+      <h3>Eco-Responsible</h3>
+      <p>Committed to reducing plastic waste and using recycled materials.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🔬</div>
+      <h3>Proven Performance</h3>
+      <p>Science-backed formulas that deliver real, visible results.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">💚</div>
+      <h3>Cruelty-Free</h3>
+      <p>Never tested on animals. Certified by Leaping Bunny.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Story Section with your NEW product image -->
+<section class="story">
+  <div class="story-content">
+    <h2>Our Story</h2>
+    <p>Founded in 1904 by Alfred Amour Garnier, our brand was built on a simple belief: beauty should be accessible to everyone. From our first hair lotion to today's innovative plant-based formulas, we've never stopped evolving.</p>
+    <p>In 2020, we launched the Garnier Green Beauty initiative, committing to more sustainable packaging, responsible sourcing, and transparent formulas. Today, over 95% of our hair care bottles are made from 100% recycled plastic.</p>
+    <p>We're proud to be a Leaping Bunny certified brand, ensuring none of our products are tested on animals.</p>
+  </div>
+  <div class="story-image">
+    <img src="https://m.media-amazon.com/images/I/61xmYod1XyL._AC_SX679_.jpg" alt="Garnier Fructis Grow Strong Fortifying Shampoo - Anti-Breakage System">
+  </div>
+</section>
+
+<!-- Sustainability Banner -->
+<section class="sustainability">
+  <h3>🌍 Our Green Beauty Promise</h3>
+  <p>By 2025, 100% of our plastic packaging will be reusable, recyclable, or compostable. We're on a mission to make beauty better for everyone.</p>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-about">
+  <h3>Ready to experience Garnier?</h3>
+  <p>Explore our best-selling collections and find your perfect match.</p>
+  <a href="products.html" class="btn-primary">Shop Our Products →</a>
+</section>
+
+<footer>
+  🌿 Garnier - Naturally inspired hair care since 1904
+</footer>
+
+<script>
+  // Cart counter
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('garnier_cart') || '[]');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartLink = document.querySelector('nav a[href="cart.html"]');
+    if (cartLink && totalItems > 0) {
+      let badge = cartLink.querySelector('.cart-badge');
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'cart-badge';
+        badge.style.cssText = 'background:#b96f30; color:white; border-radius:20px; padding:0 6px; margin-left:5px; font-size:0.7rem;';
+        cartLink.appendChild(badge);
+      }
+      badge.textContent = totalItems;
+    } else if (cartLink && cartLink.querySelector('.cart-badge')) {
+      cartLink.querySelector('.cart-badge').remove();
+    }
+  }
+  updateCartCount();
+  window.addEventListener('storage', updateCartCount);
+</script>
+</body>
+</html>
